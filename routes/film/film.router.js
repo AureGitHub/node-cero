@@ -1,6 +1,7 @@
 
 const Router = require('koa-router');
 const CommonValidator = require('../validator/common.validator');
+const FilmValidator = require('./film.validator');
 
 let films = [];
 let nextId = 0;
@@ -58,7 +59,7 @@ const router = new Router({
 });
 router.get('/', FilmRouter.get);
 router.get('/:id',CommonValidator.validateId, FilmRouter.getById);
-router.post('/', FilmRouter.create);
-router.put('/:id',CommonValidator.validateId, FilmRouter.update);
+router.post('/', FilmValidator.validateCreate, FilmRouter.create);
+router.put('/:id',CommonValidator.validateId, FilmValidator.validateCreate, FilmRouter.update);
 router.delete('/:id',CommonValidator.validateId, FilmRouter.delete);
 module.exports = router;

@@ -9,12 +9,15 @@
   "author": "Jose Aurelio de Sande Villarroel",
   "license": "ISC",
   "dependencies": {
+    "co": "^4.6.0",
     "koa": "^2.0.0-alpha.8",
     "koa-body": "^2.6.0",
     "koa-json-logger": "^1.0.2",
     "koa-logger": "^3.2.0",
     "koa-mount": "^2.0.0",
     "koa-router": "^8.0.0-alpha.1",
-    "koa-validate": "^1.0.7"
+    "koa-validate": "^1.0.7",
+    "sequelize": "^5.0.0-beta.12",
+    "sqlite": "^3.0.0"
   }
 }
