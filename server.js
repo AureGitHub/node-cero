@@ -3,11 +3,14 @@ const koaLogger = require('koa-logger');
 var koaJsonLogger = require('koa-json-logger');
 const body = require('koa-body');
 const filmRouter = require('./routes/film/film.router');
+const tipoJugadorRouter = require('./routes/tipo_jugador/tipo_jugador.router');
 const mount = require('koa-mount');
 const validate = require('koa-validate');
 var co = require('co');
 
 var db = require('./db/index');
+
+
 
 const app = new Koa();
 
@@ -36,7 +39,8 @@ if (process.env.NODE_ENV === 'dev') {
 //sin versionado
 //app.use(filmRouter.routes());
 //versionado
-app.use(mount('/v1', filmRouter.routes()));
+//app.use(mount('/v1', filmRouter.routes()));
+app.use(mount('/v1', tipoJugadorRouter.routes()));
 
 
 co(function *(){
