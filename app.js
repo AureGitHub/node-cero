@@ -1,18 +1,18 @@
-const Koa = require('koa');
+var Koa = require('koa');
+var app=new Koa();
+
 const koaLogger = require('koa-logger');
 var koaJsonLogger = require('koa-json-logger');
 const body = require('koa-body');
-const filmRouter = require('./routes/film/film.router');
-const tipoJugadorRouter = require('./routes/tipo_jugador/tipo_jugador.router');
+
+
 const mount = require('koa-mount');
 const validate = require('koa-validate');
 var co = require('co');
 
 var db = require('./db/index');
 
-
-
-const app = new Koa();
+var routerGeneric = require('./routes/generic-router/generic-router');
 
 validate(app);
 
@@ -26,6 +26,19 @@ app.use(koaJsonLogger({
     jsonapi: true
 }));
 
+
+app.use(async (ctx, next) => {
+    const start = Date.now();
+    await next();
+    const end = Date.now();
+    //set the header
+    ctx.set('X-Response-Time-Start', `${start} ms`);
+    ctx.set('X-Response-Time', `${end - start} ms`);
+
+    ctx.body = ctx.state['body'];
+    
+   });
+
 app.use(body());
 
 
@@ -33,35 +46,10 @@ if (process.env.NODE_ENV === 'dev') {
     app.use(koaLogger());
 }
 
-
 //ROUTES
-
-//sin versionado
-//app.use(filmRouter.routes());
-//versionado
-//app.use(mount('/v1', filmRouter.routes()));
-app.use(mount('/v1', tipoJugadorRouter.routes()));
+app.use(routerGeneric.routes());
 
 
-co(function *(){
-    var connection = yield db.sequelize.client.sync();
-    if(connection){     
-       
-
- 
-        var tipos = yield db.sequelize['tipo_estado_jugador'].findAll();
-
-      
-
-
-        var port = 3000;
-        app.listen(port);
-        console.log('connected to database and listening on port ' + port);
-    }
-});
-
-
-/*
 
 app.listen(3000, function (err) {
     if (err) {
@@ -69,4 +57,4 @@ app.listen(3000, function (err) {
         process.exit(1);
     }
     console.log('Koa server listening in port 3000');
-});*/
+});

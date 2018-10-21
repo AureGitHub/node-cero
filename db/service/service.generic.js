@@ -1,39 +1,33 @@
 var db = require('../index');
 
-exports.getAll = function *(tabla){
-    
-    var tipos = yield db.sequelize[tabla].findAll();
-    
-    return all;
+exports.getAll = async (tabla)=>{
+    return await db.sequelize[tabla].findAll();
 }
 
-exports.get = function *(tabla,id){
+exports.get =  async (tabla,id)=>{
     var id = Number(id);
-    var item = yield db.sequelize[tabla].find(Number(id));
-    return item;
+    return await db.sequelize[tabla].findById(Number(id));
 };
 
-exports.create = function *(tabla, obj){
-    var newItem = yield db.sequelize[tabla].create(obj);
-    return newItem;
+exports.create = async(tabla, obj)=>{    
+    return await db.sequelize[tabla].create(obj);;
 }
 
 
-exports.update = function *(tabla,id, obj){
+exports.update = async (tabla,id, obj)=>{
     var id = Number(id);
-    var item = yield db.sequelize[tabla].find(Number(id));
-    if(item){        
-        yield item.update(obj);    
-        return item;
+    var item = await db.sequelize[tabla].findById(Number(id));
+    if(item){                 
+        return await item.update(obj);   
     }
     return null;
 }
 
-exports.destroy = function *(tabla,id){
+exports.destroy = async(tabla,id) => {
     var id = Number(id);
-    var item = yield db.sequelize[tabla].find(Number(id));
+    var item = await db.sequelize[tabla].findById(Number(id));
     if(item){        
-        yield item.destroy();    
+        await item.destroy();    
     }
     
     return item;

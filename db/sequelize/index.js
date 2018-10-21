@@ -7,11 +7,15 @@ var options = { // TODO -- pull from config
     dialect: "sqlite",
     storage:     'db/bd_euromillones.sqlite',
     define: {
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true
     }
 };
 var client = new Sequelize(null, null, null, options);
 var models = {};
+
+var tables=[];
+
 
 // read all models and import them into the "db" object
 fs
@@ -22,6 +26,7 @@ fs
     .forEach(function (file) {
         var model = client.import(path.join(__dirname + '/models', file));
         models[model.name] = model;
+        tables.push(model.name);
     });
 
 Object.keys(models).forEach(function (modelName) {
@@ -30,5 +35,9 @@ Object.keys(models).forEach(function (modelName) {
     }
 });
 
+//models['jugador'].belongsTo(models['tipo_jugador'],{foreignKey: 'id_tipo_jugador', targetKey: 'id'})
+
 module.exports = models;
+
 module.exports.client = client;
+module.exports.tables = tables;
