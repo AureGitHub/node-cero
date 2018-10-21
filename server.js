@@ -11,7 +11,7 @@ var variable = require('./configuracion/variables');
 
 validate(app);
 
-
+app.use(body());
 
 //var connection = yield db.sequelize.client.sync();
 
@@ -37,7 +37,7 @@ app.use(async (ctx, next) => {
 
 });
 
-app.use(body());
+
 
 
 if (process.env.NODE_ENV === 'dev') {
