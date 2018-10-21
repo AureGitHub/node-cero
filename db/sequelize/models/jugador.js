@@ -1,3 +1,5 @@
+var enumProfile = require('../../../configuracion/enum').enumProfile;
+
 module.exports = function (sequelize, DataTypes) {
     var jugador = sequelize.define('jugador', {
         usuario: DataTypes.STRING,
@@ -12,6 +14,12 @@ module.exports = function (sequelize, DataTypes) {
             jugador.belongsTo(models.tipo_jugador,{foreignKey: 'id_tipo_jugador', targetKey: 'id'});
             jugador.belongsTo(models.tipo_estado_jugador,{foreignKey: 'id_tipo_estado_jugador', targetKey: 'id'});
             
+        },
+        permission : {
+            GET : [enumProfile.all],
+            POST : [enumProfile.Admin],
+            PUT: [enumProfile.all],
+            DELETE : [enumProfile.Admin,enumProfile.public]
         }
 
     }

@@ -1,5 +1,12 @@
 var db = require('../index');
 
+exports.login = async(identificador, password)=>{
+    var where = {usuario : identificador, password : password}
+    return await db.sequelize['jugador'].findOne({where : where});
+
+    
+}
+
 exports.getAll = async (tabla)=>{
     return await db.sequelize[tabla].findAll();
 }

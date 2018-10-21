@@ -1,18 +1,13 @@
 var Koa = require('koa');
-var app=new Koa();
+var app = new Koa();
 
 const koaLogger = require('koa-logger');
 var koaJsonLogger = require('koa-json-logger');
 const body = require('koa-body');
-
-
 const mount = require('koa-mount');
 const validate = require('koa-validate');
-var co = require('co');
-
-var db = require('./db/index');
-
 var routerGeneric = require('./routes/generic-router/generic-router');
+var variable = require('./configuracion/variables');
 
 validate(app);
 
@@ -35,9 +30,12 @@ app.use(async (ctx, next) => {
     ctx.set('X-Response-Time-Start', `${start} ms`);
     ctx.set('X-Response-Time', `${end - start} ms`);
 
+   
+
     ctx.body = ctx.state['body'];
-    
-   });
+    ctx.set(variable.KeySecure, JSON.stringify(ctx.state[variable.KeySecure]));
+
+});
 
 app.use(body());
 
