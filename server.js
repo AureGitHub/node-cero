@@ -15,11 +15,11 @@ app.use(body());
 
 //var connection = yield db.sequelize.client.sync();
 
-app.use(koaJsonLogger({
-    name: 'log',
-    path: 'logs',
-    jsonapi: true
-}));
+// app.use(koaJsonLogger({
+//     name: 'log',
+//     path: 'logs',
+//     jsonapi: true
+// }));
 
 
 app.use(async (ctx, next) => {
