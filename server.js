@@ -15,11 +15,11 @@ app.use(body());
 
 //var connection = yield db.sequelize.client.sync();
 
-app.use(koaJsonLogger({
-    name: 'log',
-    path: 'logs',
-    jsonapi: true
-}));
+// app.use(koaJsonLogger({
+//     name: 'log',
+//     path: 'logs',
+//     jsonapi: true
+// }));
 
 
 app.use(async (ctx, next) => {
@@ -40,19 +40,20 @@ app.use(async (ctx, next) => {
 
 
 
-if (process.env.NODE_ENV === 'dev') {
-    app.use(koaLogger());
-}
+// if (process.env.NODE_ENV === 'dev') {
+//     app.use(koaLogger());
+// }
 
 //ROUTES
 app.use(routerGeneric.routes());
 
 
+var port = process.env.PORT || 3000;
 
-app.listen(3000, function (err) {
+app.listen(port, function (err) {
     if (err) {
-        console.error('Error listening in port 3000', err);
+        console.error('Error listening in port ' , err);
         process.exit(1);
     }
-    console.log('Koa server listening in port 3000');
+    console.log('Koa server listening in port ');
 });
