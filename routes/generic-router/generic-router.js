@@ -1,5 +1,6 @@
 const Router = require('koa-router');
 const CommonValidator = require('../validator/common.validator');
+const LoginValidator = require('../validator/login.validator');
 var db = require('../../db/index');
 var tokenGen = require('../../token/token');
 var variable = require('../../configuracion/variables');
@@ -170,7 +171,13 @@ const awaitErorrHandlerFactory = middleware => {
 
 const router = new Router();
 
-router.post('/login', login);
+router.post('/login',LoginValidator.validateLogin, login);
+
+router.get('index.html',async () => {
+  await send(this, __dirname + '/index.html');
+});
+
+
 
 
 

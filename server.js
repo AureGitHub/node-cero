@@ -18,9 +18,7 @@ app.use(body());
 
 app.use(serve(__dirname + '/public'));
 
-app.use(function* index() {
-    yield send(this, __dirname + '/index.html');
-  });
+
 
 //var connection = yield db.sequelize.client.sync();
 
