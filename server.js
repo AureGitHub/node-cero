@@ -57,8 +57,8 @@ var port = process.env.PORT || 3000;
 
 app.listen(port, function (err) {
     if (err) {
-        console.error('Error listening in port ' , err);
+        console.error('Error listening in port ' + port , err);
         process.exit(1);
     }
-    console.log('Koa server listening in port ');
+    console.log('Koa server listening in port '+ port);
 });
