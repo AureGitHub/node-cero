@@ -1,13 +1,8 @@
-//http://localhost:3000/jugador/
-//{"identificador" : "jdesande" , "password" : "jasjas"}
+//http://localhost:3000/user/
+//{"identificador" : "jdesande" , "password" : "123456"}
 
 
 x-access-token
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDAxNTM0NzY1MTQsInVzZXIiOnsiaWQiOjExMiwidXN1YXJpbyI6ImpkZXNhbmRlIiwibm9tYnJlIjoiSm9zZSBBdXJlbGlvIGRlIFNhbmRlIFZpbGxhcnJvZWwiLCJjb3JyZW9fZXh0ZXJubyI6ImF1cmUuZGVzYW5kZUBnbWFpbC5jb20iLCJwYXNzd29yZCI6Imphc2phcyIsImlkX3RpcG9fanVnYWRvciI6MSwiaWRfdGlwb19lc3RhZG9fanVnYWRvciI6MX19.qwnCz-FKpUX68_kbng1DaYe-T4JZ6vzKa3k2dILP8GE
 
-{"secure":{
-    eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDAxNTgyNDYzMTAsInVzZXIiOnsiaWQiOjExMiwidXN1YXJpbyI6ImpkZXNhbmRlIiwibm9tYnJlIjoiSm9zZSBBdXJlbGlvIGRlIFNhbmRlIFZpbGxhcnJvZWwiLCJjb3JyZW9fZXh0ZXJubyI6ImF1cmUuZGVzYW5kZUBnbWFpbC5jb20iLCJwYXNzd29yZCI6Imphc2phcyIsImlkX3RpcG9fanVnYWRvciI6MSwiaWRfdGlwb19lc3RhZG9fanVnYWRvciI6MX0sImlwIjoiOjoxIn0.-9wuPIzLTemOuplYs2sK7uto6SFzcpOVot5fd-XI104
-    ","user":{"usuario":"jdesande","nombre":"Jose Aurelio de Sande Villarroel","email":"aure.desande@gmail.com","profile":1}}}
-
-{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDAxNTM0NzY1MTQsInVzZXIiOnsiaWQiOjExMiwidXN1YXJpbyI6ImpkZXNhbmRlIiwibm9tYnJlIjoiSm9zZSBBdXJlbGlvIGRlIFNhbmRlIFZpbGxhcnJvZWwiLCJjb3JyZW9fZXh0ZXJubyI6ImF1cmUuZGVzYW5kZUBnbWFpbC5jb20iLCJwYXNzd29yZCI6Imphc2phcyIsImlkX3RpcG9fanVnYWRvciI6MSwiaWRfdGlwb19lc3RhZG9fanVnYWRvciI6MX19.qwnCz-FKpUX68_kbng1DaYe-T4JZ6vzKa3k2dILP8GE",
-"user":{"id":112,"usuario":"jdesande","nombre":"Jose Aurelio de Sande Villarroel","correo_externo":"aure.desande@gmail.com","password":"jasjas","id_tipo_jugador":1,"id_tipo_estado_jugador":1}}
+{"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDAzMjYxOTE5NjUsInVzZXIiOnsiaWQiOjExMiwidXN1YXJpbyI6ImpkZXNhbmRlIiwibm9tYnJlIjoiSm9zZSBBdXJlbGlvIGRlIFNhbmRlIFZpbGxhcnJvZWwiLCJlbWFpbCI6ImF1cmUuZGVzYW5kZUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlkX3RpcG9fdXNlciI6MSwiaWRfdGlwb19lc3RhZG9fdXNlciI6MX0sImlwIjoiOjoxIn0.E006mMFq8WVjeSzRaNvabPV4pgR3ft0ZvgV6WO9qOKg","user":{"usuario":"jdesande","nombre":"Jose Aurelio de Sande Villarroel","email":"jdesande@tragsa.es","profile":1}}

@@ -1,11 +1,13 @@
 var fs = require('fs');
 var path = require('path');
 var Sequelize = require('sequelize');
+var variables = require('../../configuracion/variables')
+
 var username = null;
 var password = null;
 var options = { // TODO -- pull from config
     dialect: "sqlite",
-    storage:     'db/bd_euromillones.sqlite',
+    storage:     variables.db,
     define: {
         timestamps: false,
         freezeTableName: true
@@ -35,7 +37,6 @@ Object.keys(models).forEach(function (modelName) {
     }
 });
 
-//models['jugador'].belongsTo(models['tipo_jugador'],{foreignKey: 'id_tipo_jugador', targetKey: 'id'})
 
 module.exports = models;
 

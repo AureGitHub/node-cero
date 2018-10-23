@@ -29,14 +29,14 @@ var GestionPermisos=async  (ctx,permission)=>{
 
   //paso de user en claro.. utilizo el Id del user encriptado
 
-  const user = await db.service.get('jugador', decoded.user.id);
+  const user = await db.service.get('user', decoded.user.id);
   if(!user){
     ctx.throw(403, 'token de seguridad incorrecto');
   }
 
 
   if(!permission[ctx.method].includes(enumProfile.all) &&
-          !permission[ctx.method].includes(user.id_tipo_jugador)
+          !permission[ctx.method].includes(user.id_tipo_user)
       ){
         ctx.throw(403, 'no autorizado');
       }
@@ -52,7 +52,7 @@ var SetSecure = function (user, ip) {
       usuario: user.usuario,
       nombre: user.nombre,
       email: user.correo_externo == null ? user.usuario + '@tragsa.es' : user.correo_externo,
-      profile: user.id_tipo_jugador
+      profile: user.id_tipo_user
     }
 
   }
