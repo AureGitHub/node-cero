@@ -9,9 +9,18 @@ const validate = require('koa-validate');
 var routerGeneric = require('./routes/generic-router/generic-router');
 var variable = require('./configuracion/variables');
 
+serve   = require('koa-static');
+send    = require('koa-send');
+
 validate(app);
 
 app.use(body());
+
+app.use(serve(__dirname + '/public'));
+
+app.use(function* index() {
+    yield send(this, __dirname + '/index.html');
+  });
 
 //var connection = yield db.sequelize.client.sync();
 
