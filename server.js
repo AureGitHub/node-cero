@@ -15,12 +15,17 @@ app.use(body());
 
 //var connection = yield db.sequelize.client.sync();
 
-// app.use(koaJsonLogger({
-//     name: 'log',
-//     path: 'logs',
-//     jsonapi: true
-// }));
 
+if (process.env.NODE_ENV === 'dev') {    
+    app.use(koaJsonLogger({
+        name: 'log',
+        path: 'logs',
+        jsonapi: true
+    }));
+}
+
+
+console.log('NODE_ENV: ' + process.env.NODE_ENV);
 
 app.use(async (ctx, next) => {
     const start = Date.now();
