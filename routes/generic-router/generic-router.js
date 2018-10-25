@@ -183,6 +183,13 @@ const router = new Router();
 
 router.post('/login',LoginValidator.validateLogin, login);
 
+router.get('/modeSecure/:mode', (ctx)=>
+{
+  
+  variable.SecureActivated = ctx.params.mode=='Off' ? false : true;
+    
+})
+
 router.get('index.html',async () => {
   await send(this, __dirname + '/index.html');
 });

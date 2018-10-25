@@ -8,11 +8,14 @@ const mount = require('koa-mount');
 const validate = require('koa-validate');
 var routerGeneric = require('./routes/generic-router/generic-router');
 var variable = require('./configuracion/variables');
+const cors = require('koa-cors');
 
 serve   = require('koa-static');
 send    = require('koa-send');
 
 validate(app);
+
+app.use(cors());
 
 app.use(body());
 
