@@ -150,11 +150,21 @@ const awaitErorrHandlerFactory = middleware => {
   return async (ctx, next) => {
     try {
 
-      var user=await GestionPermisos(ctx,db.sequelize[ctx.url.split('/')[1]].options.permission);
+      if(variable.SecureActivated){
+        var user=await GestionPermisos(ctx,db.sequelize[ctx.url.split('/')[1]].options.permission);
+      }
+
+      
 
       await middleware(ctx, next);
 
-      ctx.state[variable.KeySecure]=SetSecure(user, ctx.request.ip);
+      
+      if(variable.SecureActivated){
+        ctx.state[variable.KeySecure]=SetSecure(user, ctx.request.ip);
+      }
+
+
+      
 
       
     } catch (err) {

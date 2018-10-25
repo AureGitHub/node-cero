@@ -23,7 +23,7 @@ app.use(serve(__dirname + '/public'));
 //var connection = yield db.sequelize.client.sync();
 
 
-if (process.env.NODE_ENV === 'dev') {    
+if (process.env.NODE_ENV === 'dev11') {    
     app.use(koaJsonLogger({
         name: 'log',
         path: 'logs',
