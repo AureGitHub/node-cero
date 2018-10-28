@@ -4,8 +4,7 @@ class CommonValidator {
 
         ctx.checkParams('id').isInt().toInt(10);
         if (ctx.errors && ctx.errors.length > 0) {
-            ctx.status = 400;
-            ctx.state['body'] = ctx.errors;
+            ctx.state['body'] = {error : ctx.errors};
             return;
         }
         await next();

@@ -47,13 +47,15 @@ var GestionPermisos=async  (ctx,permission)=>{
 }
 
 var SetSecure = function (user, ip) {
+  var createToken =tokenGen.OnlygenToken(user, ip); 
   return {
-    token: tokenGen.OnlygenToken(user, ip),
+    token: createToken.token,
+    expires : createToken.exp,
     user: {
       usuario: user.usuario,
       nombre: user.nombre,
       email: user.correo_externo == null ? user.usuario + '@tragsa.es' : user.correo_externo,
-      profile: user.id_tipo_user
+      esAdmin : user.id_tipo_user ==enumProfile.Admin
     }
 
   }
@@ -64,12 +66,16 @@ var login = async (ctx) => {
   var user = await db.service.login(ctx.request.body.identificador, ctx.request.body.password);
 
   if (!user) {
-    ctx.throw(401, 'identificador / password incorrecto');
+    ctx.state['body'] ={login : false};
+    ctx.state[variable.KeySecure]=null;
+  }
+  else{
+    ctx.state['body'] ={login : true};
+    ctx.state[variable.KeySecure]=SetSecure(user, ctx.request.ip);
   }
 
 
-  ctx.state['body'] ={};
-  ctx.state[variable.KeySecure]=SetSecure(user, ctx.request.ip);
+
 
 }
 

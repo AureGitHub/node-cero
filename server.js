@@ -48,7 +48,8 @@ app.use(async (ctx, next) => {
    
 
     ctx.body = ctx.state['body'];
-    ctx.set(variable.KeySecure, JSON.stringify(ctx.state[variable.KeySecure]));
+    ctx.body[variable.KeySecure]=ctx.state[variable.KeySecure];
+    //ctx.set(variable.KeySecure, JSON.stringify(ctx.state[variable.KeySecure]));
 
 });
 

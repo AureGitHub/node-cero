@@ -20,6 +20,10 @@ var map = {
 		"./src/app/login/login.module.ts",
 		"login-login-module"
 	],
+	"./../logout/logout.module": [
+		"./src/app/logout/logout.module.ts",
+		"logout-logout-module"
+	],
 	"./../nofound/nofound.module": [
 		"./src/app/nofound/nofound.module.ts",
 		"nofound-nofound-module"
@@ -80,7 +84,7 @@ module.exports = "<app-layout>\r\n  <!--\r\n  <div class=\"jumbotron\">\r\n    <
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_my_http_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/my.http.service */ "./src/app/services/my.http.service.ts");
+/* harmony import */ var _services_status_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/status.service */ "./src/app/services/status.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -128,24 +132,18 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(ServiceMyHttp) {
-        this.ServiceMyHttp = ServiceMyHttp;
+    function AppComponent(ServiceStatus) {
+        this.ServiceStatus = ServiceStatus;
         this.title = 'app';
         this.user = {};
         this.lista = [];
     }
     AppComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.ServiceMyHttp.get()];
-                    case 1:
-                        _a.lista = _b.sent();
-                        return [2 /*return*/];
-                }
+            return __generator(this, function (_a) {
+                // this.lista = await this.ServiceMyHttp.get();
+                this.ServiceStatus.reload();
+                return [2 /*return*/];
             });
         });
     };
@@ -155,7 +153,7 @@ var AppComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_my_http_service__WEBPACK_IMPORTED_MODULE_1__["ServiceMyHttp"]])
+        __metadata("design:paramtypes", [_services_status_service__WEBPACK_IMPORTED_MODULE_1__["ServiceStatus"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -230,6 +228,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceMyHttp", function() { return ServiceMyHttp; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var _services_status_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/status.service */ "./src/app/services/status.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -276,10 +275,15 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 };
 
 
+
 var ServiceMyHttp = /** @class */ (function () {
-    function ServiceMyHttp(http) {
+    function ServiceMyHttp(http, ServiceStatus) {
         this.http = http;
-        this.Url = 'https://node-cero.herokuapp.com/user';
+        this.ServiceStatus = ServiceStatus;
+        //private Url = 'https://node-cero.herokuapp.com';
+        this.Url = 'http://localhost:3000';
+        this.UrlUser = this.Url + '/user';
+        this.UrlLogin = this.Url + '/login/';
     }
     ServiceMyHttp.prototype.get = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -294,9 +298,43 @@ var ServiceMyHttp = /** @class */ (function () {
             });
         });
     };
+    ServiceMyHttp.prototype.handleError = function (error) {
+        console.log(error);
+    };
+    ServiceMyHttp.prototype.login = function (user) {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 4]);
+                        return [4 /*yield*/, this.http
+                                .post(this.UrlLogin, user)
+                                .toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        if (response.json().login) {
+                            this.ServiceStatus.setStatus(response.json()['x-access-token']);
+                            return [2 /*return*/, response.json().login];
+                        }
+                        else {
+                            return [2 /*return*/, false];
+                        }
+                        return [3 /*break*/, 4];
+                    case 2:
+                        error_1 = _a.sent();
+                        return [4 /*yield*/, this.handleError(error_1)];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     ServiceMyHttp = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_1__["Http"]])
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_1__["Http"], _services_status_service__WEBPACK_IMPORTED_MODULE_2__["ServiceStatus"]])
     ], ServiceMyHttp);
     return ServiceMyHttp;
 }());
@@ -309,11 +347,12 @@ var ServiceMyHttp = /** @class */ (function () {
 /*!********************************************!*\
   !*** ./src/app/services/status.service.ts ***!
   \********************************************/
-/*! exports provided: ServiceStatus */
+/*! exports provided: User, ServiceStatus */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceStatus", function() { return ServiceStatus; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -326,15 +365,62 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+var User = /** @class */ (function () {
+    function User(usuario, nombre, email) {
+        this.usuario = usuario;
+        this.nombre = nombre;
+        this.email = email;
+    }
+    return User;
+}());
+
 var ServiceStatus = /** @class */ (function () {
     function ServiceStatus() {
         this.connect = false;
+        this.admin = false;
+        this.expires = new Date();
+        this.user = null;
+        this.msgErrorStr = '';
+        this.HiddenmsgErrorBool = true;
+        this.ViewUser = '';
     }
+    ServiceStatus.prototype.msgError = function (msg) {
+        this.msgErrorStr = msg;
+        this.HiddenmsgErrorBool = false;
+    };
     ServiceStatus.prototype.IsConnect = function () {
         return this.connect;
     };
+    ServiceStatus.prototype.IsAdmin = function () {
+        return this.admin;
+    };
     ServiceStatus.prototype.TestConnect = function () {
         this.connect = !this.connect;
+    };
+    ServiceStatus.prototype.setStatus = function (Secure) {
+        localStorage.setItem('Secure', JSON.stringify(Secure));
+        this.connect = true;
+        this.admin = Secure.user.esAdmin;
+        this.expires = new Date(Secure.expires);
+        this.user = Secure.user;
+        this.ViewUser = Secure.user.email;
+    };
+    ServiceStatus.prototype.logout = function () {
+        localStorage.removeItem('Secure');
+        this.connect = false;
+        this.admin = false;
+        this.expires = null;
+        this.user = null;
+        this.ViewUser = '';
+    };
+    ServiceStatus.prototype.reload = function () {
+        if (localStorage.getItem('Secure')) {
+            var Secure = JSON.parse(localStorage.getItem('Secure'));
+            //comprobar si ha expirado antes
+            if (Secure.expires >= Date.now()) {
+                this.setStatus(Secure);
+            }
+        }
     };
     ServiceStatus = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
@@ -428,7 +514,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\r\n  <a  class=\"navbar-brand\" [routerLink] =\"['']\">Aure</a>\r\n\r\n  <button class=\"navbar-toggler\" type=\"button\"\r\n          (click)=\"toggleNavbar()\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n\r\n  <div class=\"collapse navbar-collapse\"\r\n       [ngClass]=\"{ 'show': navbarOpen }\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n        <li [hidden]=\"this.ServiceStatus.IsConnect()\" class=\"nav-item\">\r\n            <a class=\"nav-link\"  [routerLink] =\"['login']\">Conectar</a>\r\n          </li>\r\n\r\n          <li [hidden]=\"!this.ServiceStatus.IsConnect()\" class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink] =\"['logout']\">Desconectar</a>\r\n            </li>\r\n\r\n      <li class=\"nav-item\">\r\n        <a class=\"nav-link\" [routerLink] =\"['about']\">About</a>\r\n      </li>\r\n\r\n      <li [hidden]=\"!this.ServiceStatus.IsConnect()\" class=\"nav-item\">\r\n        <a class=\"nav-link\" href=\"#\">Tus datos</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</nav>"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\r\n  <a  class=\"navbar-brand\" [routerLink] =\"['']\">LOGO</a>\r\n\r\n  <button class=\"navbar-toggler\" type=\"button\"\r\n          (click)=\"toggleNavbar()\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n\r\n  <div class=\"collapse navbar-collapse\"\r\n       [ngClass]=\"{ 'show': navbarOpen }\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n        <li [hidden]=\"this.ServiceStatus.IsConnect()\" class=\"nav-item\">\r\n            <a class=\"nav-link\"  [routerLink] =\"['login']\">Conectar</a>\r\n          </li>\r\n\r\n          <li [hidden]=\"!this.ServiceStatus.IsConnect()\" class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink] =\"['logout']\">Desconectar</a>\r\n            </li>\r\n\r\n      <li class=\"nav-item\">\r\n        <a class=\"nav-link\" [routerLink] =\"['about']\">About</a>\r\n      </li>\r\n\r\n      <li [hidden]=\"!this.ServiceStatus.IsConnect()\" class=\"nav-item\">\r\n        <a class=\"nav-link\" [routerLink] =\"['tusdatos']\">Tus datos</a> \r\n      </li>\r\n\r\n      <li [hidden]=\"!this.ServiceStatus.IsAdmin()\" class=\"nav-item\">\r\n          <a class=\"nav-link\" [routerLink] =\"['tusdatos']\">Solo Admin</a> \r\n        </li>\r\n\r\n    </ul>\r\n\r\n    <ul [hidden]=\"!this.ServiceStatus.IsConnect()\" class=\"nav navbar-nav navbar-right\">\r\n        <i class=\"fa fa-user-circle-o\" aria-hidden=\"true\"> {{this.ServiceStatus.ViewUser}}</i>\r\n        \r\n      </ul>\r\n\r\n  </div>\r\n\r\n  \r\n\r\n  \r\n</nav>"
 
 /***/ }),
 
@@ -500,7 +586,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header></app-header>\r\n<div class=\"container\">\r\n  <ng-content></ng-content>\r\n</div>\r\n<router-outlet> </router-outlet>\r\n<app-footer></app-footer> \r\n"
+module.exports = "<app-header></app-header>\r\n<div class=\"container\">\r\n    <div class=\"alert alert-danger\"  [hidden]=\"this.ServiceStatus.HiddenmsgErrorBool\" (click)=\"close()\">        \r\n        <strong>Error!</strong> {{this.ServiceStatus.msgErrorStr}}\r\n      </div>\r\n\r\n  <ng-content></ng-content>\r\n</div>\r\n<router-outlet> </router-outlet>\r\n<app-footer></app-footer> \r\n"
 
 /***/ }),
 
@@ -515,6 +601,7 @@ module.exports = "<app-header></app-header>\r\n<div class=\"container\">\r\n  <n
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LayoutComponent", function() { return LayoutComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_status_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/status.service */ "./src/app/services/status.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -525,9 +612,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var LayoutComponent = /** @class */ (function () {
-    function LayoutComponent() {
+    function LayoutComponent(ServiceStatus) {
+        this.ServiceStatus = ServiceStatus;
     }
+    LayoutComponent.prototype.close = function () {
+        this.ServiceStatus.HiddenmsgErrorBool = true;
+    };
     LayoutComponent.prototype.ngOnInit = function () {
     };
     LayoutComponent = __decorate([
@@ -536,7 +628,7 @@ var LayoutComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./layout.component.html */ "./src/app/ui/layout/layout.component.html"),
             styles: [__webpack_require__(/*! ./layout.component.css */ "./src/app/ui/layout/layout.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_services_status_service__WEBPACK_IMPORTED_MODULE_1__["ServiceStatus"]])
     ], LayoutComponent);
     return LayoutComponent;
 }());
@@ -584,6 +676,10 @@ var routes = [
     {
         path: 'login',
         loadChildren: './../login/login.module#LoginModule'
+    },
+    {
+        path: 'logout',
+        loadChildren: './../logout/logout.module#LogoutModule'
     },
     {
         path: 'about',
