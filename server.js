@@ -8,19 +8,34 @@ const mount = require('koa-mount');
 const validate = require('koa-validate');
 var routerGeneric = require('./routes/generic-router/generic-router');
 var variable = require('./configuracion/variables');
+const cors = require('koa-cors');
+
+serve   = require('koa-static');
+send    = require('koa-send');
 
 validate(app);
 
+app.use(cors());
+
 app.use(body());
+
+app.use(serve(__dirname + '/public'));
+
+
 
 //var connection = yield db.sequelize.client.sync();
 
-app.use(koaJsonLogger({
-    name: 'log',
-    path: 'logs',
-    jsonapi: true
-}));
 
+if (process.env.NODE_ENV === 'dev11') {    
+    app.use(koaJsonLogger({
+        name: 'log',
+        path: 'logs',
+        jsonapi: true
+    }));
+}
+
+
+console.log('NODE_ENV: ' + process.env.NODE_ENV);
 
 app.use(async (ctx, next) => {
     const start = Date.now();
@@ -33,26 +48,28 @@ app.use(async (ctx, next) => {
    
 
     ctx.body = ctx.state['body'];
-    ctx.set(variable.KeySecure, JSON.stringify(ctx.state[variable.KeySecure]));
+    ctx.body[variable.KeySecure]=ctx.state[variable.KeySecure];
+    //ctx.set(variable.KeySecure, JSON.stringify(ctx.state[variable.KeySecure]));
 
 });
 
 
 
 
-if (process.env.NODE_ENV === 'dev') {
-    app.use(koaLogger());
-}
+// if (process.env.NODE_ENV === 'dev') {
+//     app.use(koaLogger());
+// }
 
 //ROUTES
 app.use(routerGeneric.routes());
 
 
+var port = process.env.PORT || 3000;
 
-app.listen(3000, function (err) {
+app.listen(port, function (err) {
     if (err) {
-        console.error('Error listening in port 3000', err);
+        console.error('Error listening in port ' + port , err);
         process.exit(1);
     }
-    console.log('Koa server listening in port 3000');
+    console.log('Koa server listening in port '+ port);
 });

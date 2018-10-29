@@ -1,8 +1,8 @@
 var db = require('../index');
 
 exports.login = async(identificador, password)=>{
-    var where = {usuario : identificador, password : password}
-    return await db.sequelize['jugador'].findOne({where : where});
+    var where = {usuario : !identificador ? '#' : identificador, password : password}
+    return await db.sequelize['user'].findOne({where : where});
 
     
 }

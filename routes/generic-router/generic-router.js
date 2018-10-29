@@ -1,5 +1,6 @@
 const Router = require('koa-router');
 const CommonValidator = require('../validator/common.validator');
+const LoginValidator = require('../validator/login.validator');
 var db = require('../../db/index');
 var tokenGen = require('../../token/token');
 var variable = require('../../configuracion/variables');
@@ -29,14 +30,14 @@ var GestionPermisos=async  (ctx,permission)=>{
 
   //paso de user en claro.. utilizo el Id del user encriptado
 
-  const user = await db.service.get('jugador', decoded.user.id);
+  const user = await db.service.get('user', decoded.user.id);
   if(!user){
     ctx.throw(403, 'token de seguridad incorrecto');
   }
 
 
   if(!permission[ctx.method].includes(enumProfile.all) &&
-          !permission[ctx.method].includes(user.id_tipo_jugador)
+          !permission[ctx.method].includes(user.id_tipo_user)
       ){
         ctx.throw(403, 'no autorizado');
       }
@@ -46,13 +47,15 @@ var GestionPermisos=async  (ctx,permission)=>{
 }
 
 var SetSecure = function (user, ip) {
+  var createToken =tokenGen.OnlygenToken(user, ip); 
   return {
-    token: tokenGen.OnlygenToken(user, ip),
+    token: createToken.token,
+    expires : createToken.exp,
     user: {
       usuario: user.usuario,
       nombre: user.nombre,
       email: user.correo_externo == null ? user.usuario + '@tragsa.es' : user.correo_externo,
-      profile: user.id_tipo_jugador
+      esAdmin : user.id_tipo_user ==enumProfile.Admin
     }
 
   }
@@ -63,12 +66,16 @@ var login = async (ctx) => {
   var user = await db.service.login(ctx.request.body.identificador, ctx.request.body.password);
 
   if (!user) {
-    ctx.throw(401, 'identificador / password incorrecto');
+    ctx.state['body'] ={login : false};
+    ctx.state[variable.KeySecure]=null;
+  }
+  else{
+    ctx.state['body'] ={login : true};
+    ctx.state[variable.KeySecure]=SetSecure(user, ctx.request.ip);
   }
 
 
-  ctx.state['body'] ={};
-  ctx.state[variable.KeySecure]=SetSecure(user, ctx.request.ip);
+
 
 }
 
@@ -149,11 +156,21 @@ const awaitErorrHandlerFactory = middleware => {
   return async (ctx, next) => {
     try {
 
-      var user=await GestionPermisos(ctx,db.sequelize[ctx.url.split('/')[1]].options.permission);
+      if(variable.SecureActivated){
+        var user=await GestionPermisos(ctx,db.sequelize[ctx.url.split('/')[1]].options.permission);
+      }
+
+      
 
       await middleware(ctx, next);
 
-      ctx.state[variable.KeySecure]=SetSecure(user, ctx.request.ip);
+      
+      if(variable.SecureActivated){
+        ctx.state[variable.KeySecure]=SetSecure(user, ctx.request.ip);
+      }
+
+
+      
 
       
     } catch (err) {
@@ -170,7 +187,20 @@ const awaitErorrHandlerFactory = middleware => {
 
 const router = new Router();
 
-router.post('/login', login);
+router.post('/login',LoginValidator.validateLogin, login);
+
+router.get('/modeSecure/:mode', (ctx)=>
+{
+  
+  variable.SecureActivated = ctx.params.mode=='Off' ? false : true;
+    
+})
+
+router.get('index.html',async () => {
+  await send(this, __dirname + '/index.html');
+});
+
+
 
 
 

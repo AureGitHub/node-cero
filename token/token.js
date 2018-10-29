@@ -16,5 +16,5 @@ exports.OnlygenToken = function (user, ip) {
         ip : ip
     }, JWT_SECRET);
 
-    return token;
+    return {token : token, exp : expires} ;
 }
