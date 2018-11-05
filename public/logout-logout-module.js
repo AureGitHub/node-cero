@@ -32,7 +32,7 @@ var LogoutdComponent = /** @class */ (function () {
     }
     LogoutdComponent.prototype.desconectar = function () {
         this.ServiceStatus.logout();
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/home', { skipLocationChange: true });
     };
     LogoutdComponent.prototype.ngOnInit = function () {
     };

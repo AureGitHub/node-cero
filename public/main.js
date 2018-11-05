@@ -12,6 +12,10 @@ var map = {
 		"./src/app/about/about.module.ts",
 		"about-about-module"
 	],
+	"./../gesuser/gesuser.module": [
+		"./src/app/gesuser/gesuser.module.ts",
+		"gesuser-gesuser-module"
+	],
 	"./../home/home.module": [
 		"./src/app/home/home.module.ts",
 		"home-home-module"
@@ -280,8 +284,8 @@ var ServiceMyHttp = /** @class */ (function () {
     function ServiceMyHttp(http, ServiceStatus) {
         this.http = http;
         this.ServiceStatus = ServiceStatus;
-        this.Url = 'https://node-cero.herokuapp.com';
-        //private Url = 'http://localhost:3000';
+        //private Url = 'https://node-cero.herokuapp.com';
+        this.Url = 'http://localhost:3000';
         this.UrlUser = this.Url + '/user';
         this.UrlLogin = this.Url + '/login/';
     }
@@ -308,11 +312,13 @@ var ServiceMyHttp = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 4]);
+                        this.ServiceStatus.Loading = true;
                         return [4 /*yield*/, this.http
                                 .post(this.UrlLogin, user)
                                 .toPromise()];
                     case 1:
                         response = _a.sent();
+                        this.ServiceStatus.Loading = false;
                         if (response.json().login) {
                             this.ServiceStatus.setStatus(response.json()['x-access-token']);
                             return [2 /*return*/, response.json().login];
@@ -323,7 +329,69 @@ var ServiceMyHttp = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 2:
                         error_1 = _a.sent();
+                        this.ServiceStatus.Loading = false;
                         return [4 /*yield*/, this.handleError(error_1)];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ServiceMyHttp.prototype.Post = function (url, obj) {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 4]);
+                        this.ServiceStatus.Loading = true;
+                        return [4 /*yield*/, this.http
+                                .post(this.Url + url, obj)
+                                .toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        this.ServiceStatus.Loading = false;
+                        if (response.json().login) {
+                            this.ServiceStatus.setStatus(response.json()['x-access-token']);
+                            return [2 /*return*/, response.json().data];
+                        }
+                        else {
+                            return [2 /*return*/, false];
+                        }
+                        return [3 /*break*/, 4];
+                    case 2:
+                        error_2 = _a.sent();
+                        this.ServiceStatus.Loading = false;
+                        return [4 /*yield*/, this.handleError(error_2)];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ServiceMyHttp.prototype.Get = function (url, obj) {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 4]);
+                        this.ServiceStatus.Loading = true;
+                        return [4 /*yield*/, this.http
+                                .get(this.Url + url)
+                                .toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        this.ServiceStatus.Loading = false;
+                        return [2 /*return*/, response.json().data];
+                    case 2:
+                        error_3 = _a.sent();
+                        this.ServiceStatus.Loading = false;
+                        return [4 /*yield*/, this.handleError(error_3)];
                     case 3:
                         _a.sent();
                         return [3 /*break*/, 4];
@@ -383,7 +451,18 @@ var ServiceStatus = /** @class */ (function () {
         this.msgErrorStr = '';
         this.HiddenmsgErrorBool = true;
         this.ViewUser = '';
+        this.loading = false;
     }
+    Object.defineProperty(ServiceStatus.prototype, "Loading", {
+        get: function () {
+            return this.loading;
+        },
+        set: function (b) {
+            this.loading = b;
+        },
+        enumerable: true,
+        configurable: true
+    });
     ServiceStatus.prototype.msgError = function (msg) {
         this.msgErrorStr = msg;
         this.HiddenmsgErrorBool = false;
@@ -451,7 +530,7 @@ module.exports = ".fa-heart {\r\n  color: hotpink;\r\n}\r\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-dark bg-dark mt-5 fixed-bottom\">\r\n  <div class=\"navbar-expand m-auto navbar-text\">\r\n    Made with <i class=\"fa fa-heart\"></i> by <a href=\"#\">Aure</a>\r\n  </div>\r\n</nav>\r\n"
+module.exports = "<nav class=\"navbar navbar-dark bg-dark mt-5 fixed-bottom\">\r\n  <div class=\"navbar-expand m-auto navbar-text\">\r\n    <i class=\"fa fa-copyright\"></i> by <a href=\"#\">Aure</a>\r\n  </div>\r\n</nav>\r\n"
 
 /***/ }),
 
@@ -514,7 +593,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\r\n  <a  class=\"navbar-brand\" [routerLink] =\"['']\">LOGO</a>\r\n\r\n  <button class=\"navbar-toggler\" type=\"button\"\r\n          (click)=\"toggleNavbar()\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n\r\n  <div class=\"collapse navbar-collapse\"\r\n       [ngClass]=\"{ 'show': navbarOpen }\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n        <li [hidden]=\"this.ServiceStatus.IsConnect()\" class=\"nav-item\">\r\n            <a class=\"nav-link\"  [routerLink] =\"['login']\">Conectar</a>\r\n          </li>\r\n\r\n          <li [hidden]=\"!this.ServiceStatus.IsConnect()\" class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink] =\"['logout']\">Desconectar</a>\r\n            </li>\r\n\r\n      <li class=\"nav-item\">\r\n        <a class=\"nav-link\" [routerLink] =\"['about']\">About</a>\r\n      </li>\r\n\r\n      <li [hidden]=\"!this.ServiceStatus.IsConnect()\" class=\"nav-item\">\r\n        <a class=\"nav-link\" [routerLink] =\"['tusdatos']\">Tus datos</a> \r\n      </li>\r\n\r\n      <li [hidden]=\"!this.ServiceStatus.IsAdmin()\" class=\"nav-item\">\r\n          <a class=\"nav-link\" [routerLink] =\"['tusdatos']\">Solo Admin</a> \r\n        </li>\r\n\r\n    </ul>\r\n\r\n    <ul [hidden]=\"!this.ServiceStatus.IsConnect()\" class=\"nav navbar-nav navbar-right\">\r\n        <i class=\"fa fa-user-circle-o\" aria-hidden=\"true\"> {{this.ServiceStatus.ViewUser}}</i>\r\n        \r\n      </ul>\r\n\r\n  </div>\r\n\r\n  \r\n\r\n  \r\n</nav>"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\r\n    <a [hidden]=\"this.ServiceStatus.Loading\"  class=\"navbar-brand\" [routerLink] =\"['']\">LOGO</a>\r\n   <i [hidden]=\"!this.ServiceStatus.Loading\" class=\"fa fa-spinner fa-2x\"></i>\r\n \r\n\r\n  <button class=\"navbar-toggler\" type=\"button\"\r\n          (click)=\"toggleNavbar()\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n\r\n  <div class=\"collapse navbar-collapse\"\r\n       [ngClass]=\"{ 'show': navbarOpen }\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n        <li [hidden]=\"this.ServiceStatus.IsConnect()\" class=\"nav-item\">\r\n            <a class=\"nav-link\"  [routerLink] =\"['login']\" skipLocationChange>Conectar</a>\r\n          </li>\r\n\r\n          <li [hidden]=\"!this.ServiceStatus.IsConnect()\" class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink] =\"['logout']\" skipLocationChange>Desconectar</a>\r\n            </li>\r\n\r\n      <li class=\"nav-item\">\r\n        <a class=\"nav-link\" [routerLink] =\"['about']\" skipLocationChange>About</a>\r\n      </li>\r\n\r\n      <li [hidden]=\"!this.ServiceStatus.IsConnect()\" class=\"nav-item\">\r\n        <a class=\"nav-link\" [routerLink] =\"['tusdatos']\" skipLocationChange>Tus datos</a> \r\n      </li>\r\n\r\n      <li [hidden]=\"!this.ServiceStatus.IsAdmin()\" class=\"nav-item\">\r\n          <a class=\"nav-link\" [routerLink] =\"['gesusers']\" skipLocationChange>Gestión usuarios</a> \r\n        </li>\r\n\r\n    </ul>\r\n\r\n    <ul [hidden]=\"!this.ServiceStatus.IsConnect()\" class=\"nav navbar-nav navbar-right\">\r\n        <i class=\"fa fa-user-circle-o\" aria-hidden=\"true\"> {{this.ServiceStatus.ViewUser}}</i>\r\n        \r\n      </ul>\r\n\r\n  </div>\r\n\r\n  \r\n\r\n  \r\n</nav>"
 
 /***/ }),
 
@@ -686,6 +765,10 @@ var routes = [
         loadChildren: './../about/about.module#AboutModule'
     },
     {
+        path: 'gesusers',
+        loadChildren: './../gesuser/gesuser.module#GesUserModule'
+    },
+    {
         path: '**',
         /*si aqui pongo un componente, entonces me carga el modulo al que pertenece. Para que
         no haga la carga hasta que se utiliza se utiliza loadchildren. Al ponerle un string a load children,
@@ -773,7 +856,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Desarrollos\angular7\tutorial-angular-cli-v6-styling-bootstrap\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\Desarrollos\angular7\angular-bootstrap-cero\src\main.ts */"./src/main.ts");
 
 
 /***/ })

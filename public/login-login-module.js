@@ -5849,6 +5849,7 @@ var UserLogin = /** @class */ (function () {
     return UserLogin;
 }());
 var LoginComponent = /** @class */ (function () {
+    // tslint:disable-next-line:whitespace
     function LoginComponent(ServiceStatus, ServiceMyHttp, router) {
         this.ServiceStatus = ServiceStatus;
         this.ServiceMyHttp = ServiceMyHttp;
@@ -5856,8 +5857,8 @@ var LoginComponent = /** @class */ (function () {
         this.user = new UserLogin();
     }
     LoginComponent.prototype.ngOnInit = function () {
-        this.user.identificador = "jdesande";
-        this.user.password = "123456";
+        this.user.identificador = 'jdesande';
+        this.user.password = '123456';
     };
     LoginComponent.prototype.myFunc = function () {
         this.ServiceStatus.TestConnect();
@@ -5870,8 +5871,9 @@ var LoginComponent = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.ServiceMyHttp.login(this.user)];
                     case 1:
                         login = _a.sent();
-                        if (login)
-                            this.router.navigateByUrl('/home');
+                        if (login) {
+                            this.router.navigateByUrl('/home', { skipLocationChange: true });
+                        }
                         else {
                             this.ServiceStatus.msgError('usuario/password erróneo');
                         }
