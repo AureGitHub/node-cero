@@ -284,8 +284,8 @@ var ServiceMyHttp = /** @class */ (function () {
     function ServiceMyHttp(http, ServiceStatus) {
         this.http = http;
         this.ServiceStatus = ServiceStatus;
-        //private Url = 'https://node-cero.herokuapp.com';
-        this.Url = 'http://localhost:3000';
+        this.Url = 'https://node-cero.herokuapp.com';
+        //private Url = 'http://localhost:3000';
         this.UrlUser = this.Url + '/user';
         this.UrlLogin = this.Url + '/login/';
     }
