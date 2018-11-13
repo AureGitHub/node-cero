@@ -540,9 +540,36 @@ var ServiceMyHttp = /** @class */ (function () {
             });
         });
     };
-    ServiceMyHttp.prototype.Get = function (url, obj) {
+    ServiceMyHttp.prototype.Delete = function (url, id) {
         return __awaiter(this, void 0, void 0, function () {
             var response, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 4]);
+                        this.ServiceStatus.Loading = true;
+                        return [4 /*yield*/, this.http
+                                .delete(this.Url + url + '/' + id)
+                                .toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        this.ServiceStatus.Loading = false;
+                        return [2 /*return*/, !response.json().error];
+                    case 2:
+                        error_3 = _a.sent();
+                        this.ServiceStatus.Loading = false;
+                        return [4 /*yield*/, this.handleError(error_3)];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ServiceMyHttp.prototype.Get = function (url, obj) {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -556,9 +583,9 @@ var ServiceMyHttp = /** @class */ (function () {
                         this.ServiceStatus.Loading = false;
                         return [2 /*return*/, response.json().data];
                     case 2:
-                        error_3 = _a.sent();
+                        error_4 = _a.sent();
                         this.ServiceStatus.Loading = false;
-                        return [4 /*yield*/, this.handleError(error_3)];
+                        return [4 /*yield*/, this.handleError(error_4)];
                     case 3:
                         _a.sent();
                         return [3 /*break*/, 4];
@@ -616,7 +643,6 @@ var ServiceStatus = /** @class */ (function () {
         this.expires = new Date();
         this.user = null;
         this.msgErrorStr = '';
-        this.HiddenmsgErrorBool = true;
         this.ViewUser = '';
         this.loading = false;
     }
@@ -630,10 +656,6 @@ var ServiceStatus = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    ServiceStatus.prototype.msgError = function (msg) {
-        this.msgErrorStr = msg;
-        this.HiddenmsgErrorBool = false;
-    };
     ServiceStatus.prototype.IsConnect = function () {
         return this.connect;
     };
@@ -697,7 +719,7 @@ module.exports = "mat-sidenav-container, mat-sidenav-content, mat-sidenav {\r\n 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-sidenav-container>\r\n    <mat-sidenav  #sidenav role=\"navigation\">\r\n     <mat-nav-list>\r\n      <a routerLink=\"/login\"  mat-list-item *ngIf=\"!this.ServiceStatus.IsConnect()\">\r\n        <mat-icon class=\"icon\">input</mat-icon> \r\n        <span class=\"label\">Login</span>\r\n      </a>\r\n      <a mat-list-item \r\n          routerLink=\"/\">\r\n        <mat-icon class=\"icon\">home</mat-icon>  \r\n          <span class=\"label\">Home</span>\r\n      </a>\r\n      <a mat-list-item\r\n        routerLink=\"/dashboard\">\r\n        <mat-icon class=\"icon\">dashboard</mat-icon>  \r\n        <span class=\"label\">Dashboard</span>\r\n      </a>\r\n      <a   routerLink=\"/logout\"  mat-list-item  *ngIf=\"this.ServiceStatus.IsConnect()\"\r\n          type=\"button\">\r\n        <mat-icon class=\"icon\">input</mat-icon>\r\n        <span class=\"label\">LogOut</span>\r\n      </a>  \r\n      </mat-nav-list>\r\n    </mat-sidenav>\r\n    <mat-sidenav-content>\r\n      <mat-toolbar color=\"primary\">\r\n       <div fxHide.gt-xs>\r\n         <button mat-icon-button (click)=\"sidenav.toggle()\">\r\n          <mat-icon>menu</mat-icon>\r\n        </button>\r\n      </div>\r\n       <div>\r\n         <a routerLink=\"/\">\r\n            Material Blog\r\n         </a>\r\n       </div>\r\n       <div fxFlex fxLayout fxLayoutAlign=\"flex-end\"  fxHide.xs>\r\n          <ul fxLayout fxLayoutGap=\"20px\" class=\"navigation-items\">\r\n\r\n              <li [hidden]=\"this.ServiceStatus.IsConnect()\">\r\n                  <a  routerLink=\"/login\">\r\n                    <mat-icon class=\"icon\">input</mat-icon> \r\n                    <span  class=\"label\">Login</span>\r\n                   </a>\r\n              </li>\r\n              <li>\r\n                <a\r\n                  routerLink=\"/\">\r\n                    <mat-icon class=\"icon\">home</mat-icon>\r\n                    <span class=\"label\">Home</span>\r\n                </a>\r\n              </li>\r\n              <li>\r\n                  <a\r\n                    routerLink=\"/dashboard\">\r\n                      <mat-icon class=\"icon\">dashboard</mat-icon>\r\n                      <span class=\"label\">Dashboard</span>\r\n                  </a>\r\n                </li>\r\n              <li [hidden]=\"!this.ServiceStatus.IsConnect()\">\r\n                <a  routerLink=\"/logout\">\r\n                    <mat-icon class=\"icon\">input</mat-icon>\r\n                    <span class=\"label\">LogOut</span>\r\n                   </a>\r\n              </li>\r\n          </ul>\r\n       </div>\r\n      </mat-toolbar>\r\n      <main>\r\n          \r\n              <div class=\"alert alert-danger\"  [hidden]=\"this.ServiceStatus.HiddenmsgErrorBool\" (click)=\"close()\">        \r\n                  <strong>Error!</strong> {{this.ServiceStatus.msgErrorStr}}\r\n          \r\n          \r\n            <ng-content></ng-content>\r\n          </div>\r\n        <router-outlet></router-outlet>\r\n      </main>\r\n    </mat-sidenav-content>\r\n  </mat-sidenav-container>\r\n"
+module.exports = "<mat-sidenav-container>\r\n  <mat-sidenav #sidenav role=\"navigation\">\r\n    <mat-nav-list>\r\n      <a routerLink=\"/login\" skipLocationChange  mat-list-item *ngIf=\"!this.ServiceStatus.IsConnect()\">\r\n        <mat-icon class=\"icon\">input</mat-icon>\r\n        <span class=\"label\">Login</span>\r\n      </a>\r\n      <a routerLink=\"/\" skipLocationChange mat-list-item >\r\n        <mat-icon class=\"icon\">home</mat-icon>\r\n        <span class=\"label\">Home</span>\r\n      </a>\r\n      <a routerLink=\"/dashboard\" skipLocationChange mat-list-item *ngIf=\"this.ServiceStatus.IsAdmin()\" >\r\n        <mat-icon class=\"icon\">dashboard</mat-icon>\r\n        <span class=\"label\">Usuarios</span>\r\n      </a>\r\n      <a routerLink=\"/logout\" skipLocationChange  mat-list-item *ngIf=\"this.ServiceStatus.IsConnect()\" type=\"button\">\r\n        <mat-icon class=\"icon\">input</mat-icon>\r\n        <span class=\"label\">LogOut</span>\r\n      </a>\r\n    </mat-nav-list>\r\n  </mat-sidenav>\r\n  <mat-sidenav-content>\r\n    <mat-toolbar color=\"primary\">\r\n      <div fxHide.gt-xs>\r\n        <button mat-icon-button (click)=\"sidenav.toggle()\">\r\n          <mat-icon>menu</mat-icon>\r\n        </button>\r\n      </div>\r\n      <div>\r\n        <a routerLink=\"/\">\r\n          Aure-Angular-Material\r\n        </a>\r\n      </div>\r\n      <div fxFlex fxLayout fxLayoutAlign=\"flex-end\" fxHide.xs>\r\n        <ul fxLayout fxLayoutGap=\"20px\" class=\"navigation-items\">\r\n\r\n          <li [hidden]=\"this.ServiceStatus.IsConnect()\">\r\n            <a routerLink=\"/login\" skipLocationChange>\r\n              <mat-icon class=\"icon\">input</mat-icon>\r\n              <span class=\"label\">Login</span>\r\n            </a>\r\n          </li>\r\n          <li>\r\n            <a routerLink=\"/\" skipLocationChange>\r\n              <mat-icon class=\"icon\">home</mat-icon>\r\n              <span class=\"label\">Home</span>\r\n            </a>\r\n          </li>\r\n          <li [hidden]=\"!this.ServiceStatus.IsAdmin()\" >\r\n            <a routerLink=\"/dashboard\" skipLocationChange>\r\n              <mat-icon class=\"icon\">dashboard</mat-icon>\r\n              <span class=\"label\">Usuarios</span>\r\n            </a>\r\n          </li>\r\n          <li [hidden]=\"!this.ServiceStatus.IsConnect()\">\r\n            <a routerLink=\"/logout\" skipLocationChange>\r\n              <mat-icon class=\"icon\">input</mat-icon>\r\n              <span class=\"label\">LogOut</span>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </mat-toolbar>\r\n    <div class=\"div-progress-bar\">\r\n      <div  [hidden]=\"!this.ServiceStatus.Loading\"><mat-progress-bar mode=\"indeterminate\" ></mat-progress-bar></div>\r\n      \r\n    </div>\r\n\r\n \r\n    <main>\r\n      <div class=\"container main\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n\r\n    </main>\r\n  </mat-sidenav-content>\r\n</mat-sidenav-container>"
 
 /***/ }),
 
@@ -730,7 +752,6 @@ var LayoutComponent = /** @class */ (function () {
         this.navbarOpen = false;
     }
     LayoutComponent.prototype.close = function () {
-        this.ServiceStatus.HiddenmsgErrorBool = true;
     };
     LayoutComponent.prototype.toggleNavbar = function () {
         this.navbarOpen = !this.navbarOpen;

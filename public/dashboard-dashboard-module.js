@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".card {\r\n  min-width: 80%;\r\n}\r\n\r\n.example-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  max-height: 500px;\r\n  min-width: 100%;\r\n}\r\n\r\n.mat-table {\r\n  overflow: auto;\r\n  max-height: 500px;\r\n}\r\n\r\na {\r\n  cursor: pointer;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZGFzaGJvYXJkL2Rhc2hib2FyZC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBZTtDQUNoQjs7QUFFRDtFQUNFLGNBQWM7RUFDZCx1QkFBdUI7RUFDdkIsa0JBQWtCO0VBQ2xCLGdCQUFnQjtDQUNqQjs7QUFFRDtFQUNFLGVBQWU7RUFDZixrQkFBa0I7Q0FDbkI7O0FBRUQ7RUFDRSxnQkFBZ0I7Q0FDakIiLCJmaWxlIjoic3JjL2FwcC9kYXNoYm9hcmQvZGFzaGJvYXJkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2FyZCB7XHJcbiAgbWluLXdpZHRoOiA4MCU7XHJcbn1cclxuXHJcbi5leGFtcGxlLWNvbnRhaW5lciB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gIG1heC1oZWlnaHQ6IDUwMHB4O1xyXG4gIG1pbi13aWR0aDogMTAwJTtcclxufVxyXG5cclxuLm1hdC10YWJsZSB7XHJcbiAgb3ZlcmZsb3c6IGF1dG87XHJcbiAgbWF4LWhlaWdodDogNTAwcHg7XHJcbn1cclxuXHJcbmEge1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxufSJdfQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Rhc2hib2FyZC9kYXNoYm9hcmQuY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -18,7 +18,7 @@ module.exports = ".card {\r\n  min-width: 80%;\r\n}\r\n\r\n.example-container {\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <br>\r\n    <div class=\"container\">\r\n        <div class=\"container\">\r\n          <div fxLayout=\"column\" fxLayoutGap=\"20px\" fxLayout.gt-md=\"row\"  fxLayoutAlign=\"space-around center\" class=\"content\">\r\n              <div class=\"blocks\">\r\n                  <button button=\"submit\" mat-raised-button color=\"primary\">\r\n                      <mat-icon>add</mat-icon> Add Post\r\n                  </button>\r\n              </div>\r\n        </div>\r\n    </div>\r\n    <br>\r\n    <div class=\"container\">\r\n      <div fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"content\">\r\n        <mat-card class=\"card\" >\r\n          <mat-card-title fxLayout.gt-xs=\"row\" fxLayout.xs=\"column\">\r\n            <h3>Recent Posts</h3>\r\n          </mat-card-title>\r\n          <mat-card-content>\r\n              <div class=\"example-container mat-elevation-z8\">\r\n                  <mat-table #table [dataSource]=\"dataSource\">\r\n                  <ng-container matColumnDef=\"date_posted\">\r\n                    <mat-header-cell *matHeaderCellDef> Date Posted </mat-header-cell>\r\n                    <mat-cell *matCellDef=\"let element\"> {{element.date_posted  | date: 'd/M/y'}} </mat-cell>\r\n                  </ng-container>\r\n                    <ng-container matColumnDef=\"title\">\r\n                      <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let element\"> {{element.title}} </mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"category\">\r\n                      <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let element\"> {{element.category}} </mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"delete\">\r\n                      <mat-header-cell *matHeaderCellDef></mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let element\">\r\n                        <a\r\n                            type=\"button\">\r\n                          <mat-icon class=\"icon\">delete</mat-icon>\r\n                        </a> \r\n                      </mat-cell>\r\n                    </ng-container>   \r\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\r\n                  </mat-table>\r\n                </div> \r\n          </mat-card-content>\r\n        </mat-card>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div>\r\n  <br>\r\n    <div class=\"container\">\r\n        <div class=\"container\">\r\n          <div fxLayout=\"column\" fxLayoutGap=\"20px\" fxLayout.gt-md=\"row\"  fxLayoutAlign=\"space-around center\" class=\"content\">\r\n              <div class=\"blocks\">\r\n                  <button button=\"submit\" mat-raised-button color=\"primary\">\r\n                      <mat-icon>add</mat-icon> Nuevo usuario\r\n                  </button>\r\n              </div>\r\n        </div>\r\n    </div>\r\n    <br>\r\n    <div class=\"container\">\r\n      <div fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"content\">\r\n        <mat-card class=\"card\" >\r\n          <mat-card-title fxLayout.gt-xs=\"row\" fxLayout.xs=\"column\">\r\n            <h3>Usuarios</h3>\r\n          </mat-card-title>\r\n          <mat-card-content>\r\n              <div class=\"example-container mat-elevation-z8\">\r\n                  <mat-table #table [dataSource]=\"dataSource\">                  \r\n                    <ng-container matColumnDef=\"nombre\">\r\n                      <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let element\"> {{element.nombre}} </mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"email\">\r\n                      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let element\"> {{element.email}} </mat-cell>\r\n                    </ng-container>\r\n                    <ng-container matColumnDef=\"delete\">\r\n                      <mat-header-cell *matHeaderCellDef></mat-header-cell>\r\n                      <mat-cell *matCellDef=\"let element\">\r\n                        <a type=\"button\" (click)='delete(element)'>\r\n                          <mat-icon class=\"icon\">delete</mat-icon>\r\n                        </a> \r\n                      </mat-cell>\r\n                    </ng-container>   \r\n                    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\r\n                    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\r\n                  </mat-table>\r\n                </div> \r\n          </mat-card-content>\r\n        </mat-card>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -26,29 +26,16 @@ module.exports = "<div>\r\n  <br>\r\n    <div class=\"container\">\r\n        <d
 /*!**************************************************!*\
   !*** ./src/app/dashboard/dashboard.component.ts ***!
   \**************************************************/
-/*! exports provided: DashboardComponent, PostDataSource */
+/*! exports provided: DashboardComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardComponent", function() { return DashboardComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PostDataSource", function() { return PostDataSource; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _data_data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../data/data.service */ "./src/app/data/data.service.ts");
-/* harmony import */ var _angular_cdk_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/table */ "./node_modules/@angular/cdk/esm5/table.es5.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/* harmony import */ var _services_my_http_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/my.http.service */ "./src/app/services/my.http.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58,40 +45,110 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
 
 
 
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent(dataService) {
-        this.dataService = dataService;
-        this.displayedColumns = ['date_posted', 'title', 'category', 'delete'];
-        this.dataSource = new PostDataSource(this.dataService);
+    function DashboardComponent(ServiceMyHttp, toastr, dialog) {
+        this.ServiceMyHttp = ServiceMyHttp;
+        this.toastr = toastr;
+        this.dialog = dialog;
+        this.displayedColumns = ['nombre', 'email', 'delete'];
+        this.dataSource = null;
     }
+    ;
+    DashboardComponent.prototype.ngOnInit = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.ServiceMyHttp.Get('/user', null)];
+                    case 1:
+                        _a.dataSource = _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    DashboardComponent.prototype.delete = function (item) {
+        return __awaiter(this, void 0, void 0, function () {
+            var borrado, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        if (!confirm("Are you sure to delete " + item.nombre)) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.ServiceMyHttp.Delete('/user', item.id)];
+                    case 1:
+                        borrado = _b.sent();
+                        if (!borrado) return [3 /*break*/, 3];
+                        _a = this;
+                        return [4 /*yield*/, this.ServiceMyHttp.Get('/user', null)];
+                    case 2:
+                        _a.dataSource = _b.sent();
+                        this.toastr.success('Correcto', 'Borrado correctamente', {
+                            timeOut: 3000
+                        });
+                        return [3 /*break*/, 4];
+                    case 3:
+                        this.toastr.error('No se ha podido borrar!', 'Error!', {
+                            timeOut: 0
+                        });
+                        _b.label = 4;
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     DashboardComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-dashboard',
             template: __webpack_require__(/*! ./dashboard.component.html */ "./src/app/dashboard/dashboard.component.html"),
             styles: [__webpack_require__(/*! ./dashboard.component.css */ "./src/app/dashboard/dashboard.component.css")]
         }),
-        __metadata("design:paramtypes", [_data_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"]])
+        __metadata("design:paramtypes", [_services_my_http_service__WEBPACK_IMPORTED_MODULE_1__["ServiceMyHttp"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_2__["ToastrService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"]])
     ], DashboardComponent);
     return DashboardComponent;
 }());
-
-var PostDataSource = /** @class */ (function (_super) {
-    __extends(PostDataSource, _super);
-    function PostDataSource(dataService) {
-        var _this = _super.call(this) || this;
-        _this.dataService = dataService;
-        return _this;
-    }
-    PostDataSource.prototype.connect = function () {
-        return this.dataService.getData();
-    };
-    PostDataSource.prototype.disconnect = function () {
-    };
-    return PostDataSource;
-}(_angular_cdk_table__WEBPACK_IMPORTED_MODULE_2__["DataSource"]));
 
 
 

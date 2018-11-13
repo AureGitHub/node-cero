@@ -18,7 +18,7 @@ module.exports = ".login-container{\r\n    max-width: 400px; \r\n    margin: 60p
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"content\">\r\n\r\n\r\n    <mat-card class=\"example-card\">\r\n      <mat-card-header>\r\n        <mat-card-title>Conectar</mat-card-title>\r\n      </mat-card-header>\r\n      <mat-card-content>\r\n        <form class=\"example-form\" #heroForm=\"ngForm\">\r\n          <table class=\"example-full-width\" cellspacing=\"0\">\r\n            <tr>\r\n              <td>\r\n                <mat-form-field class=\"example-full-width\">\r\n                  <input matInput placeholder=\"Username\" name=\"username\" [(ngModel)]=\"user.identificador\" required>\r\n                </mat-form-field>\r\n              </td>\r\n            </tr>\r\n            <tr>\r\n              <td>\r\n                <mat-form-field class=\"example-full-width\">\r\n                  <input matInput placeholder=\"Password\" type=\"password\" name=\"password\" [(ngModel)]=\"user.password\"\r\n                    required>\r\n                </mat-form-field>\r\n              </td>\r\n            </tr>\r\n          </table>\r\n        </form>\r\n        <mat-spinner [style.display]=\"showSpinner ? 'block' : 'none'\"></mat-spinner>\r\n      </mat-card-content>\r\n      <mat-card-actions>\r\n        <button mat-raised-button (click)=\"onSubmit()\" [disabled]=\"!heroForm.form.valid\" color=\"primary\">Login</button>\r\n      </mat-card-actions>\r\n    </mat-card>\r\n  </div>\r\n</div>"
+module.exports = "<div>\r\n    <br>\r\n      <div class=\"container\">\r\n          <div class=\"container\">\r\n            <div fxLayout=\"column\" fxLayoutGap=\"10px\" fxLayout.gt-md=\"row\"  fxLayoutAlign=\"space-around center\" class=\"content\">\r\n                <div class=\"blocks\">\r\n                    <p class=\"md-display-1\">Conectar</p>\r\n                    \r\n                </div>\r\n          </div>\r\n      </div>\r\n      <br>\r\n      <div class=\"container\">\r\n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"content\">\r\n          <mat-card class=\"card1\" >\r\n              <form class=\"example-form\" #heroForm=\"ngForm\">\r\n                  <table class=\"example-full-width\" cellspacing=\"0\">\r\n                    <tr>\r\n                      <td>\r\n                        <mat-form-field class=\"example-full-width\">\r\n                          <input matInput placeholder=\"Username\" name=\"username\" [(ngModel)]=\"user.identificador\" required>\r\n                        </mat-form-field>\r\n                      </td>\r\n                    </tr>\r\n                    <tr>\r\n                      <td>\r\n                        <mat-form-field class=\"example-full-width\">\r\n                          <input matInput placeholder=\"Password\" type=\"password\" name=\"password\" [(ngModel)]=\"user.password\"\r\n                            required>\r\n                        </mat-form-field>\r\n                      </td>\r\n                    </tr>\r\n                  </table>\r\n                </form>\r\n                <mat-card-actions>\r\n                    <div fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"content\">\r\n                        <button mat-raised-button (click)=\"onSubmit()\" [disabled]=\"!heroForm.form.valid || disablebButton\" color=\"primary\">Login</button>\r\n                    </div>\r\n                    \r\n                  </mat-card-actions>\r\n          </mat-card>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n\r\n\r\n<!-- <div class=\"container\">\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"center center\" class=\"content\">\r\n\r\n\r\n    <mat-card class=\"example-card\">\r\n      <mat-card-header>\r\n        <mat-card-title>Conectar</mat-card-title>\r\n      </mat-card-header>\r\n      <mat-card-content>\r\n        <form class=\"example-form\" #heroForm=\"ngForm\">\r\n          <table class=\"example-full-width\" cellspacing=\"0\">\r\n            <tr>\r\n              <td>\r\n                <mat-form-field class=\"example-full-width\">\r\n                  <input matInput placeholder=\"Username\" name=\"username\" [(ngModel)]=\"user.identificador\" required>\r\n                </mat-form-field>\r\n              </td>\r\n            </tr>\r\n            <tr>\r\n              <td>\r\n                <mat-form-field class=\"example-full-width\">\r\n                  <input matInput placeholder=\"Password\" type=\"password\" name=\"password\" [(ngModel)]=\"user.password\"\r\n                    required>\r\n                </mat-form-field>\r\n              </td>\r\n            </tr>\r\n          </table>\r\n        </form>\r\n        <mat-spinner [style.display]=\"showSpinner ? 'block' : 'none'\"></mat-spinner>\r\n      </mat-card-content>\r\n      <mat-card-actions>\r\n        <button mat-raised-button (click)=\"onSubmit()\" [disabled]=\"!heroForm.form.valid\" color=\"primary\">Login</button>\r\n      </mat-card-actions>\r\n    </mat-card>\r\n  </div>\r\n</div> -->"
 
 /***/ }),
 
@@ -98,6 +98,7 @@ var LoginComponent = /** @class */ (function () {
         this.ServiceMyHttp = ServiceMyHttp;
         this.router = router;
         this.toastr = toastr;
+        this.disablebButton = false;
         this.user = new UserLogin();
     }
     LoginComponent.prototype.ngOnInit = function () {
@@ -111,7 +112,7 @@ var LoginComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.ServiceStatus.HiddenmsgErrorBool = true;
+                        this.disablebButton = true;
                         return [4 /*yield*/, this.ServiceMyHttp.login(this.user)];
                     case 1:
                         login = _a.sent();
@@ -122,6 +123,7 @@ var LoginComponent = /** @class */ (function () {
                             this.router.navigateByUrl('/home', { skipLocationChange: true });
                         }
                         else {
+                            this.disablebButton = false;
                             this.toastr.error('usuario / password incorrecto!', 'Error!', {
                                 timeOut: 0
                             });
